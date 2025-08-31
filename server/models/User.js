@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   address: { type: String },
   playlists: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Playlist' }],
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Music' }],
+  likes: [String], // Array of song IDs
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
 }, { timestamps: true });
 

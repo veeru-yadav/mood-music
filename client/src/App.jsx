@@ -11,8 +11,16 @@ import Library from "./pages/Library";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import Search from "./pages/Search";
+import MusicList from "./components/MusicList";
+import MusicPlayer from "./components/MusicPlayer";
 import ProtectedRoute from './components/ProtectedRoute';
 import { useLocation } from 'react-router-dom';
+
+import AdminLayout from "./pages/admin/AdminLayout";
+import Users from "./pages/admin/Users";
+import Playlists from "./pages/admin/Playlists";
+import Analysis from "./pages/admin/Analysis";
+import Dashboard from "./pages/admin/Dashboard";
 
 function App() {
   const location = useLocation();
@@ -33,6 +41,16 @@ function App() {
           <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
           <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/music-list" element={<ProtectedRoute><MusicList /></ProtectedRoute>} />
+          <Route path="/music-player" element={<ProtectedRoute><MusicPlayer /></ProtectedRoute>} />
+
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="users" element={<Users />} />
+            <Route path="playlists" element={<Playlists />} />
+            <Route path="analysis" element={<Analysis />} />
+          </Route>
+
         </Routes>
       </div>
     </>

@@ -1,5 +1,5 @@
 import express from 'express';
-import { uploadMusic, deleteMusic, updateMusic, getAllUsers, deleteUser } from '../controllers/adminController.js';
+import { uploadMusic, deleteMusic, updateMusic, getAllUsers, deleteUser, getAllPlaylists, getAnalysisStats } from '../controllers/adminController.js';
 import { protect, isAdmin } from '../middleware/auth.js';
 import upload from '../middleware/upload.js';
 
@@ -19,5 +19,10 @@ router.put('/music/:id', protect, isAdmin, updateMusic);
 
 // Delete a music track (admin only)
 router.delete('/music/:id', protect, isAdmin, deleteMusic);
+
+router.get("/playlists", protect, isAdmin, getAllPlaylists);
+
+router.get("/analysis", protect, isAdmin, getAnalysisStats);
+
 
 export default router;

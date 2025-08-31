@@ -48,8 +48,8 @@ export const addMusicToPlaylist = async (req, res) => {
 
     const playlist = await Playlist.findById(playlistId);
     if (!playlist) return res.status(404).json({ error: "Playlist not found" });
-    const music = await Music.findById(musicId);
-    if (!music) return res.status(404).json({ error: "Music not found" });
+    // const music = await Music.findById(musicId);
+    // if (!music) return res.status(404).json({ error: "Music not found" });
 
     if (!playlist.musics.includes(musicId)) {
       playlist.musics.push(musicId);
@@ -58,6 +58,7 @@ export const addMusicToPlaylist = async (req, res) => {
 
     res.status(200).json({ message: "Music added to playlist", playlist });
   } catch (error) {
+    console.error("Error adding music to playlist:", error);
     res.status(500).json({ error: "Failed to add music to playlist" });
   }
 };

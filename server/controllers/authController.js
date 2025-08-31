@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 // Generate JWT
-const generateToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+const generateToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
 // @route POST /api/auth/register
 export const registerUser = async (req, res) => {
@@ -49,6 +49,8 @@ export const loginUser = async (req, res) => {
     email: user.email,
     address: user.address,
     role: user.role,
+    likes: user.likes,
+    playlists: user.playlists,
     token: generateToken(user.id),
   });
 };

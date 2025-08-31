@@ -1,5 +1,7 @@
 import Music from '../models/Music.js';
 import User from '../models/User.js';
+import Playlist from '../models/Playlist.js';
+
 
 // @route POST /api/admin/music/upload
 export const uploadMusic = async (req, res) => {
@@ -92,4 +94,24 @@ export const deleteUser = async (req, res) => {
 };
 
 
+// Get all playlists
+export const getAllPlaylists = async (req, res) => {
+  try {
+    const playlists = await Playlist.find().populate("user", "username email");
+    res.json(playlists);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
+
+// Analysis stats
+export const getAnalysisStats = async (req, res) => {
+  try {
+    const userCount = await User.countDocuments();
+    const playlistCount = await Playlist.countDocuments();
+    res.json({ userCount, playlistCount });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

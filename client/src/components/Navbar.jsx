@@ -49,7 +49,15 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/profile">Profile</Link>
             </li>
+            {user?.role === "admin" && (
+              <li className="nav-item">
+                <Link className="nav-link text-warning fw-bold" to="/admin">
+                  Admin Actions
+                </Link>
+              </li>
+            )}
           </ul>
+
           {mood && (
             <button
               onClick={() => navigate('/select-mood')}

@@ -33,7 +33,7 @@ const SelectMood = () => {
         },
       });
       setAddress(res.data.address);
-      
+
     } catch (error) {
       console.error('Error fetching user address:', error);
     }
@@ -87,6 +87,14 @@ const SelectMood = () => {
             className="card text-center m-2 p-4 shadow"
             style={{ width: '150px', cursor: 'pointer' }}
             onClick={() => handleMoodSelect(mood.name)}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.03)";
+              e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.15)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+            }}
           >
             <div style={{ fontSize: '2rem' }}>{mood.icon}</div>
             <div className="mt-2 fw-bold">{mood.name}</div>

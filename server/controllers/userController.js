@@ -43,11 +43,11 @@ export const likeMusic = async (req, res) => {
     const { musicId } = req.params;
 
     const user = await User.findById(userId);
-    const music = await Music.findById(musicId);
+    //const music = await Music.findById(musicId);
 
-    if (!user || !music) {
-      return res.status(404).json({ message: 'User or Music not found' });
-    }
+    // if (!user || !music) {
+    //   return res.status(404).json({ message: 'User or Music not found' });
+    // }
 
     // Check if already liked
     if (user.likes.includes(musicId)) {
@@ -59,8 +59,8 @@ export const likeMusic = async (req, res) => {
     await user.save();
 
     // Increment music likes count
-    music.likes += 1;
-    await music.save();
+    // music.likes += 1;
+    // await music.save();
 
     res.status(200).json({ message: 'Music liked successfully' });
   } catch (err) {
@@ -68,4 +68,22 @@ export const likeMusic = async (req, res) => {
   }
 };
 
+export const unlikeMusic = async (req , res ) => {
+  try{
+    const userId = req.user.id; // assuming JWT middleware sets req.user
+    const { musicId } = req.params;
 
+    const user = await User.findById(userId);
+
+    if (!user.likes.includes(musicId)) {
+      return res.status(400).json({ message: 'Music not liked yet' });
+    }
+
+    user.likes = user.likes.filter(id => id !== musicId);
+    await user.save();
+
+    res.status(200).json({ message: 'Music unliked successfully' });
+  } catch(err){
+    res.status(500).json({ message: 'Failed to unlike music', err });
+  }
+};
