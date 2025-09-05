@@ -61,7 +61,7 @@ const Home = () => {
       try {
         const res = await fetch(
           `https://discoveryprovider.audius.co/v1/tracks/search?query=${encodeURIComponent(
-            mood.name
+            mood.name + " " + climate
           )}&app_name=myapp`
         );
         const data = await res.json();
@@ -248,13 +248,21 @@ const Home = () => {
               <div
                 key={song.id}
                 onClick={() => playTrack(idx)}
-                className={`song-row d-flex align-items-center p-2 mb-2 rounded ${isCurrent ? "bg-light border-primary" : "bg-white"
+                className={`song-row d-flex align-items-center shadow p-2 mb-2 rounded ${isCurrent ? "bg-darkprimary border-primary" : "bg-white"
                   }`}
                 style={{
                   width: "80%",
                   cursor: "pointer",
                   boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                   position: "relative",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.03)";
+                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
                 }}
               >
                 <img

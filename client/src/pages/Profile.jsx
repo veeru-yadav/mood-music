@@ -58,7 +58,12 @@ const Profile = () => {
   }
 
   return (
-    <div className="container py-2 shadow-lg">
+    <div className="container py-2 shadow-lg"
+    style={{
+      background:"#dce6f1ff",
+      borderRadius:"15px"
+    }}
+    >
       <div className="d-flex justify-content-end mb-3">
         <CloseButton />
       </div>
