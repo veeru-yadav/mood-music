@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 import API from '../backendApi/api'; // Adjust the import path as necessary
 import 'bootstrap/dist/css/bootstrap.min.css';
 

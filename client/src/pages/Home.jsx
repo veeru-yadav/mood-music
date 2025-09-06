@@ -254,16 +254,10 @@ const Home = () => {
                   width: "80%",
                   cursor: "pointer",
                   boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                  position: "relative",
+                  position: "relative", // ✅ keep relative so dropdown positions correctly
+                  overflow: "visible",  // ✅ prevent clipping
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "scale(1.03)";
-                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
-                }}
+                
               >
                 <img
                   src={song.artwork?.["150x150"] || "https://via.placeholder.com/50"}
@@ -320,7 +314,11 @@ const Home = () => {
                 {showMenu === song.id && (
                   <div
                     className="position-absolute bg-white border rounded shadow-sm p-2"
-                    style={{ top: "100%", right: "10px", zIndex: 100 }}
+                    style={{
+                      top: "100%",
+                      right: "10px",
+                      zIndex: 9999, // ✅ ensures dropdown always on top
+                    }}
                     onClick={(e) => e.stopPropagation()}
                   >
                     {playlists.map((p) => (
@@ -343,6 +341,7 @@ const Home = () => {
                   </div>
                 )}
               </div>
+
             );
           })}
         </div>

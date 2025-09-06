@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
+
+import API from '../backendApi/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +17,7 @@ const Playlists = () => {
     useEffect(() => {
         const fetchPlaylists = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/playlists', {
+                const res = await API.get('/playlists', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -97,8 +98,8 @@ const Playlists = () => {
         };
 
         try {
-            const res = await axios.post(
-                'http://localhost:5000/api/playlists',
+            const res = await API.post(
+                '/playlists',
                 { name: newName },
                 config
             );
@@ -112,7 +113,7 @@ const Playlists = () => {
     // Delete playlist
     const handleDelete = async (playlistId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/playlists/${playlistId}`, {
+            await API.delete(`/playlists/${playlistId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

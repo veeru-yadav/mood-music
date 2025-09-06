@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import CloseButton from "../components/CloseButton";
-import axios from "axios";
+
+import API from '../backendApi/api';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -42,7 +43,7 @@ const Profile = () => {
       };
       if (formData.password) payload.password = formData.password;
 
-      await axios.put("http://localhost:5000/api/users/profile", payload, config);
+      await API.put("/users/profile", payload, config);
 
       setMessage("Profile updated successfully!");
     } catch (error) {
