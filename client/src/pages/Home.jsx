@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useMood } from "../context/MoodContext";
 import { useAuth } from "../context/AuthContext";
 import Loading from "../components/Loading";
@@ -238,7 +239,22 @@ const Home = () => {
       {loading ? (
         <Loading />
       ) : error ? (
-        <p className="text-danger">{error}</p>
+        error === "You must be logged in to view songs" ? (
+          <div
+            className="alert alert-warning d-flex align-items-center justify-content-between"
+            role="alert"
+            style={{ maxWidth: "500px", margin: "0 auto" }}
+          >
+            <div>
+              <strong>⚠ Please login</strong> to see the songs.
+            </div>
+            <a href="/login" className="btn btn-sm btn-primary ms-3">
+              Login
+            </a>
+          </div>
+        ) : (
+          <p className="text-danger">{error}</p>
+        )
       ) : songs.length > 0 ? (
         <div className="d-flex flex-column align-items-center">
           {songs.map((song, idx) => {
@@ -257,7 +273,7 @@ const Home = () => {
                   position: "relative", // ✅ keep relative so dropdown positions correctly
                   overflow: "visible",  // ✅ prevent clipping
                 }}
-                
+
               >
                 <img
                   src={song.artwork?.["150x150"] || "https://via.placeholder.com/50"}
