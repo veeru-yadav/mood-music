@@ -7,8 +7,9 @@ import API from "../backendApi/api";
 import { FaHeart, FaRegHeart, FaEllipsisV } from "react-icons/fa";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { mood, climate } = useMood();
-  const { user } = useAuth();
+  const { user , logout} = useAuth();
   const token = user?.token;
 
   const [songs, setSongs] = useState([]);
@@ -32,7 +33,6 @@ const Home = () => {
     );
     return res.url; // redirected MP3 URL
   };
-
 
   const config = {
     headers: {
@@ -62,7 +62,7 @@ const Home = () => {
       try {
         const res = await fetch(
           `https://discoveryprovider.audius.co/v1/tracks/search?query=${encodeURIComponent(
-            mood.name + " " + climate
+            mood.name
           )}&app_name=myapp`
         );
         const data = await res.json();
@@ -248,9 +248,8 @@ const Home = () => {
             <div>
               <strong>⚠ Please login</strong> to see the songs.
             </div>
-            <a href="/login" className="btn btn-sm btn-primary ms-3">
-              Login
-            </a>
+            
+            
           </div>
         ) : (
           <p className="text-danger">{error}</p>
